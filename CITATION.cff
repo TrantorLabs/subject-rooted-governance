@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this artifact, cite the release you used by tag and commit; main moves."
+title: "Subject-Rooted Governance: an executable research artifact for governing long-lived AI actors as persistent subjects"
+type: software
+authors:
+  - name: TRANTOR LABS
+    address: Singapore
+repository-code: https://github.com/TrantorLabs/subject-rooted-governance
+license: Apache-2.0
+version: 0.1.0
+date-released: 2026-09-19
+abstract: >-
+  Companion artifact of "Persistent Subjecthood and Responsibility Black Holes: A Subject-Rooted
+  Governance Architecture for Long-Lived AI Actors". A Rust reference harness with independent
+  checkers for the paper's structural conditions G1-G6 and target properties O1-O3, twenty
+  fault-injection scenarios across four baselines, a four-valued responsibility-black-hole
+  adjudicator, a bounded finite-world explorer reproducing the P1-P3 counterexamples, two TLA+
+  models executed with SANY/TLC, and a contract-level adapter for SoulAuth v0.3.0 authentication
+  facts. Results are deterministic and regenerated in CI from the committed source.
+keywords:
+  - AI governance
+  - AI agents
+  - accountability
+  - provenance
+  - authorization
+  - formal methods
+  - Rust
+# Add the DOI once the release archive has been deposited:
+# doi: 10.5281/zenodo.XXXXXXX

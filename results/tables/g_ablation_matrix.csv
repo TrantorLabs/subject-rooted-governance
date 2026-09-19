@@ -1,0 +1,17 @@
+scenario,primary_property,observed_property_verdict,test_expectation_matched
+S00,O2,SATISFIED,true
+S01,O2,SATISFIED,true
+S02,O2,SATISFIED,true
+S03,G1,VIOLATED,true
+S04,O2,SATISFIED,true
+S05,G1,VIOLATED,true
+S06,G2,VIOLATED,true
+S07,O1,VIOLATED,true
+S08,G3,VIOLATED,true
+S09,O2,SATISFIED,true
+S10,G4,VIOLATED,true
+S11,G4,VIOLATED,true
+S12,O3,VIOLATED,true
+S13,O2,SATISFIED,true
+S14,G6,VIOLATED,true
+S15,G6,VIOLATED,true

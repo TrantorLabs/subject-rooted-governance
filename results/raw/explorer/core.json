@@ -1,0 +1,170 @@
+[
+  {
+    "mutation": "None",
+    "states": 9,
+    "transitions": 8,
+    "violations": {},
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "SubjectConfusion",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O1_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ],
+      "O2_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ],
+      "O3_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "ProvenanceLoss",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O1_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "AuthorityMismatch",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O2_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ],
+      "O3_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "Bypass",
+    "states": 11,
+    "transitions": 10,
+    "violations": {
+      "O1_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "bypass produces effect"
+      ],
+      "O2_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "bypass produces effect"
+      ],
+      "O3_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "bypass produces effect"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "DenyThenEffect",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O2_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ],
+      "O3_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "StaleState",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O2_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ],
+      "O3_bounded": [
+        "subject-scoped revocation takes effect",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "Substitution",
+    "states": 9,
+    "transitions": 8,
+    "violations": {
+      "O2_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  },
+  {
+    "mutation": "Replay",
+    "states": 10,
+    "transitions": 9,
+    "violations": {
+      "O2_bounded": [
+        "keep initial authority",
+        "submit and resolve request",
+        "final admission decision",
+        "resource executes and commits provenance",
+        "replay consumed admission"
+      ]
+    },
+    "completed": true,
+    "max_effects": 2
+  }
+]

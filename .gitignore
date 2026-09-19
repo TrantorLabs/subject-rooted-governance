@@ -1,0 +1,9 @@
+/target/
+/formal/states/
+/results/validation/
+/results/formal/*.log
+*.tmp
+.env
+*.pem
+*.key
+/formal/*_TTrace_*

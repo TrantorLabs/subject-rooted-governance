@@ -1,0 +1,10 @@
+{
+  "SubjectConfusion": {"O1": true, "O2": true, "O3": true},
+  "ProvenanceLoss": {"O1": true, "O2": false, "O3": false},
+  "AuthorityMismatch": {"O1": false, "O2": true, "O3": true},
+  "Bypass": {"O1": true, "O2": true, "O3": true},
+  "DenyThenEffect": {"O1": false, "O2": true, "O3": true},
+  "StaleState": {"O1": false, "O2": true, "O3": true},
+  "Substitution": {"O1": false, "O2": true, "O3": false},
+  "Replay": {"O1": false, "O2": true, "O3": false}
+}

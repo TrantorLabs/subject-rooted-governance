@@ -1,0 +1,8 @@
+clause,instance,premises_established,supported_in_this_instance
+P4(a),S00,true,true
+P4(a),S01,true,true
+P4(a),S02,true,true
+P4(a),S04,true,true
+P4(a),S09,true,true
+P4(a),S13,true,true
+P4(b),fresh-revocation-normal-resource,true,true

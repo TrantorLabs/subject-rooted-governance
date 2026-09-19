@@ -1,0 +1,5 @@
+scenario,accountability_verdict,test_expectation_matched
+S16,CLOSED,true
+S17,UNADJUDICABLE,true
+S18,CONFIRMED_RBH,true
+S19,EVIDENCE_CONFLICT,true

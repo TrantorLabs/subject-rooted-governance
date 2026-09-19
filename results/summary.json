@@ -1,0 +1,7 @@
+{
+  "b3_scenarios": 20,
+  "b3_unexpected": [],
+  "probabilistic_safety_rate": null,
+  "property_violation_is_not_test_failure": true,
+  "records": 80
+}

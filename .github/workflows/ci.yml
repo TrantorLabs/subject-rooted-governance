@@ -1,0 +1,46 @@
+name: research artifact
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: rustup update stable --no-self-update && rustup default stable && rustup component add rustfmt clippy
+      - name: Reproduce core evidence
+        run: bash scripts/reproduce.sh
+      # 提交的证据必须能在另一台机器上逐字节重现；manifest 带时间戳与工具链版本，不在此列。
+      - name: Committed evidence matches the regenerated evidence
+        run: git diff --exit-code -- results/raw results/traces results/evidence results/tables results/summary.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: research-evidence
+          path: results/
+  formal:
+    runs-on: ubuntu-latest
+    env:
+      TLA2TOOLS_VERSION: v1.8.0
+      TLA2TOOLS_SHA256: 9d36716ffb5e49d1ba8fae4651eba59f3189887e12eb90e204a42d2e6e993fef
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Fetch tla2tools.jar (pinned release, pinned SHA-256)
+        run: |
+          curl -sSfL -o tla2tools.jar "https://github.com/tlaplus/tlaplus/releases/download/${TLA2TOOLS_VERSION}/tla2tools.jar"
+          echo "${TLA2TOOLS_SHA256}  tla2tools.jar" | sha256sum -c -
+      - name: SANY + TLC (reference, observability, fault matrix)
+        run: TLA2TOOLS_JAR="$PWD/tla2tools.jar" bash scripts/check-formal.sh
+      # 提交的故障矩阵必须与本次 TLC 执行一致，srg-explorer 的测试再把它与 Rust BFS 对齐。
+      - name: Committed TLC matrix matches this execution
+        run: git diff --exit-code -- results/formal/tlc_matrix.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: formal-logs
+          path: results/formal/

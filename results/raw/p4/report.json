@@ -1,0 +1,148 @@
+{
+  "evidence_level": "composition check under the declared reference contract and bounded execution; a G4 path with no effect is not reported as a mediation PASS",
+  "cases": [
+    {
+      "clause": "P4(a)",
+      "instance": "S00",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S00.json"
+    },
+    {
+      "clause": "P4(a)",
+      "instance": "S01",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S01.json"
+    },
+    {
+      "clause": "P4(a)",
+      "instance": "S02",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S02.json"
+    },
+    {
+      "clause": "P4(a)",
+      "instance": "S04",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S04.json"
+    },
+    {
+      "clause": "P4(a)",
+      "instance": "S09",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S09.json"
+    },
+    {
+      "clause": "P4(a)",
+      "instance": "S13",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O1",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ],
+        [
+          "O2",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/ret-S13.json"
+    },
+    {
+      "clause": "P4(b)",
+      "instance": "fresh-revocation-normal-resource",
+      "premises_established": true,
+      "conclusions": [
+        [
+          "O3",
+          {
+            "Evaluated": "Satisfied"
+          }
+        ]
+      ],
+      "supports_in_this_instance": true,
+      "evidence_file": "raw/p4/fresh-revocation.json"
+    }
+  ],
+  "non_vacuous_reference_cases": 7,
+  "universal_proof": false
+}

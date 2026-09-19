@@ -1,0 +1,11 @@
+{
+  "sany": "executed",
+  "tlc_reference": "executed",
+  "tlc_observability": "executed",
+  "tlc_fault_matrix": "executed",
+  "tla2tools_sha256": "9d36716ffb5e49d1ba8fae4651eba59f3189887e12eb90e204a42d2e6e993fef",
+  "java": "openjdk version 17.0.20.1 2026-08-18",
+  "core_reference_distinct_states": 9,
+  "observability_distinct_states": 8,
+  "scope": "bounded reference model; a TLC pass is not a general proof"
+}

@@ -1,0 +1,6 @@
+Subject-Rooted Governance research artifact
+Copyright 2026 TRANTOR LABS
+
+Original research implementation. SoulAuth (https://github.com/TrantorLabs/SoulAuth) is the
+upstream identity reference; this artifact adapts its authentication-fact contract and does not
+claim that a deployed SoulAuth service was run.

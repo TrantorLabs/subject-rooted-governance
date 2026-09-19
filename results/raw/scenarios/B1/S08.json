@@ -1,0 +1,609 @@
+{
+  "schema_version": "srg-evidence-1.0",
+  "scenario_id": "S08",
+  "description": "Authority Mismatch",
+  "baseline": "B1",
+  "contract": {
+    "id": "ReferenceContractV1",
+    "domain": "research",
+    "resources": [
+      "ledger"
+    ],
+    "role_schema": {
+      "Requester": {
+        "min": 1,
+        "max": 1
+      },
+      "Executor": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "sources": {
+      "admissions": "admission-recorder",
+      "attributions": "resource-observer",
+      "availability": "recovery-observer",
+      "effects": "resource-observer",
+      "identity": "identity-root",
+      "links": "resource-observer",
+      "provenance": "provenance-store",
+      "requests": "request-recorder",
+      "seal": "collector",
+      "snapshots": "authority-root"
+    },
+    "commitment_window": 2,
+    "retention": 100,
+    "recovery_paths": [
+      "primary"
+    ],
+    "max_clock": 200
+  },
+  "query": {
+    "request_id": "request-1",
+    "now": 12
+  },
+  "evidence": {
+    "identity": [
+      {
+        "id": "identity-fact",
+        "source": "identity-root",
+        "fact": {
+          "request_id": "request-1",
+          "actor": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          },
+          "credentials": [
+            "credential-old"
+          ],
+          "session": "session-1",
+          "runtime": "runtime-old",
+          "roles": {
+            "Requester": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ],
+            "Executor": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ]
+          },
+          "at": 4
+        }
+      }
+    ],
+    "requests": [
+      {
+        "id": "request-record",
+        "source": "request-recorder",
+        "fact": {
+          "id": "request-1",
+          "chain": "chain-1",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          },
+          "roles": {
+            "Requester": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ],
+            "Executor": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ]
+          },
+          "action": {
+            "resource": "ledger",
+            "operation": "transfer",
+            "recipient": "X",
+            "amount": 1000
+          },
+          "at": 4
+        }
+      }
+    ],
+    "admissions": [
+      {
+        "id": "admission-record",
+        "source": "admission-recorder",
+        "fact": {
+          "id": "admission-1",
+          "request_id": "request-1",
+          "chain": "chain-1",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          },
+          "roles": {
+            "Requester": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ],
+            "Executor": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ]
+          },
+          "action": {
+            "resource": "ledger",
+            "operation": "transfer",
+            "recipient": "X",
+            "amount": 1000
+          },
+          "decision": "Allow",
+          "actual_basis": "grant-B",
+          "observed_version": 1,
+          "at": 5,
+          "consumption": "SingleUse"
+        }
+      }
+    ],
+    "effects": [
+      {
+        "id": "receipt-effect-1",
+        "source": "resource-observer",
+        "fact": {
+          "id": "effect-1",
+          "chain": "chain-1",
+          "request_id": "request-1",
+          "action": {
+            "resource": "ledger",
+            "operation": "transfer",
+            "recipient": "X",
+            "amount": 1000
+          },
+          "at": 6,
+          "ledger_sequence": 1
+        }
+      }
+    ],
+    "attributions": [
+      {
+        "id": "attribution-effect-1",
+        "source": "resource-observer",
+        "fact": {
+          "effect_id": "effect-1",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          },
+          "roles": {
+            "Requester": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ],
+            "Executor": [
+              {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "links": [
+      {
+        "id": "link-effect-1",
+        "source": "resource-observer",
+        "fact": {
+          "effect_id": "effect-1",
+          "admission_id": "admission-1"
+        }
+      }
+    ],
+    "provenance": [],
+    "snapshots": [
+      {
+        "id": "snapshot-1",
+        "source": "authority-root",
+        "fact": {
+          "version": 1,
+          "at": 1,
+          "bases": [
+            {
+              "id": "grant-A",
+              "subject": {
+                "domain": "research",
+                "id": "A",
+                "kind": "AIActor"
+              },
+              "role": "Requester",
+              "resource": "ledger",
+              "operation": "transfer",
+              "recipients": [
+                "X"
+              ],
+              "max_amount": 2000,
+              "issued_at": 1,
+              "expires_at": null,
+              "delegation": null
+            },
+            {
+              "id": "grant-B",
+              "subject": {
+                "domain": "research",
+                "id": "B",
+                "kind": "AIActor"
+              },
+              "role": "Requester",
+              "resource": "ledger",
+              "operation": "transfer",
+              "recipients": [
+                "X"
+              ],
+              "max_amount": 2000,
+              "issued_at": 1,
+              "expires_at": null,
+              "delegation": null
+            }
+          ],
+          "revocations": [],
+          "reauthorizations": []
+        }
+      }
+    ],
+    "availability": [],
+    "seals": [
+      {
+        "source": "collector",
+        "through": 12,
+        "channels": [
+          "admissions",
+          "attributions",
+          "availability",
+          "effects",
+          "identity",
+          "links",
+          "provenance",
+          "requests",
+          "snapshots"
+        ]
+      }
+    ]
+  },
+  "trace": [
+    {
+      "point": 1,
+      "kind": "initial authority",
+      "detail": {
+        "at": 1,
+        "bases": [
+          {
+            "delegation": null,
+            "expires_at": null,
+            "id": "grant-A",
+            "issued_at": 1,
+            "max_amount": 2000,
+            "operation": "transfer",
+            "recipients": [
+              "X"
+            ],
+            "resource": "ledger",
+            "role": "Requester",
+            "subject": {
+              "domain": "research",
+              "id": "A",
+              "kind": "AIActor"
+            }
+          },
+          {
+            "delegation": null,
+            "expires_at": null,
+            "id": "grant-B",
+            "issued_at": 1,
+            "max_amount": 2000,
+            "operation": "transfer",
+            "recipients": [
+              "X"
+            ],
+            "resource": "ledger",
+            "role": "Requester",
+            "subject": {
+              "domain": "research",
+              "id": "B",
+              "kind": "AIActor"
+            }
+          }
+        ],
+        "reauthorizations": [],
+        "revocations": [],
+        "version": 1
+      }
+    },
+    {
+      "point": 4,
+      "kind": "request",
+      "detail": {
+        "action": {
+          "amount": 1000,
+          "operation": "transfer",
+          "recipient": "X",
+          "resource": "ledger"
+        },
+        "at": 4,
+        "chain": "chain-1",
+        "id": "request-1",
+        "roles": {
+          "Executor": [
+            {
+              "domain": "research",
+              "id": "A",
+              "kind": "AIActor"
+            }
+          ],
+          "Requester": [
+            {
+              "domain": "research",
+              "id": "A",
+              "kind": "AIActor"
+            }
+          ]
+        },
+        "subject": {
+          "domain": "research",
+          "id": "A",
+          "kind": "AIActor"
+        }
+      }
+    },
+    {
+      "point": 5,
+      "kind": "final admission",
+      "detail": {
+        "action": {
+          "amount": 1000,
+          "operation": "transfer",
+          "recipient": "X",
+          "resource": "ledger"
+        },
+        "actual_basis": "grant-B",
+        "at": 5,
+        "chain": "chain-1",
+        "consumption": "SingleUse",
+        "decision": "Allow",
+        "id": "admission-1",
+        "observed_version": 1,
+        "request_id": "request-1",
+        "roles": {
+          "Executor": [
+            {
+              "domain": "research",
+              "id": "A",
+              "kind": "AIActor"
+            }
+          ],
+          "Requester": [
+            {
+              "domain": "research",
+              "id": "A",
+              "kind": "AIActor"
+            }
+          ]
+        },
+        "subject": {
+          "domain": "research",
+          "id": "A",
+          "kind": "AIActor"
+        }
+      }
+    },
+    {
+      "point": 6,
+      "kind": "real ledger effect",
+      "detail": {
+        "action": {
+          "amount": 1000,
+          "operation": "transfer",
+          "recipient": "X",
+          "resource": "ledger"
+        },
+        "at": 6,
+        "chain": "chain-1",
+        "id": "effect-1",
+        "ledger_sequence": 1,
+        "request_id": "request-1"
+      }
+    }
+  ],
+  "truth": {
+    "actual_actor": {
+      "domain": "research",
+      "id": "A",
+      "kind": "AIActor"
+    },
+    "actual_roles": {
+      "Requester": [
+        {
+          "domain": "research",
+          "id": "A",
+          "kind": "AIActor"
+        }
+      ],
+      "Executor": [
+        {
+          "domain": "research",
+          "id": "A",
+          "kind": "AIActor"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "id": "effect-1",
+        "chain": "chain-1",
+        "request_id": "request-1",
+        "action": {
+          "resource": "ledger",
+          "operation": "transfer",
+          "recipient": "X",
+          "amount": 1000
+        },
+        "at": 6,
+        "ledger_sequence": 1
+      }
+    ],
+    "balances": {
+      "X": 1000,
+      "Y": 0,
+      "treasury": 999000
+    }
+  },
+  "reports": {
+    "properties": {
+      "G1": {
+        "outcome": {
+          "Evaluated": "Satisfied"
+        },
+        "evidence_used": [
+          "request-record",
+          "identity-fact"
+        ],
+        "reasons": [
+          "subject and every required role match the trusted fact"
+        ]
+      },
+      "G2": {
+        "outcome": {
+          "Evaluated": "Violated"
+        },
+        "evidence_used": [
+          "receipt-effect-1"
+        ],
+        "reasons": [
+          "the sealed commitment set contains no required fact committed in time"
+        ]
+      },
+      "G3": {
+        "outcome": {
+          "Evaluated": "Violated"
+        },
+        "evidence_used": [
+          "admission-record",
+          "snapshot-1"
+        ],
+        "reasons": [
+          "the actual basis does not match, or is revoked, in the snapshot that was used"
+        ]
+      },
+      "G4": {
+        "outcome": {
+          "Evaluated": "Satisfied"
+        },
+        "evidence_used": [
+          "admission-record",
+          "receipt-effect-1"
+        ],
+        "reasons": [
+          "a prior positive final admission exists with an independent execution-chain link"
+        ]
+      },
+      "G5": {
+        "outcome": {
+          "Evaluated": "Satisfied"
+        },
+        "evidence_used": [
+          "admission-record",
+          "snapshot-1"
+        ],
+        "reasons": [
+          "admission used the applicable state and honoured effective restrictions"
+        ]
+      },
+      "G6": {
+        "outcome": {
+          "Evaluated": "Satisfied"
+        },
+        "evidence_used": [
+          "admission-record",
+          "receipt-effect-1"
+        ],
+        "reasons": [
+          "action content matches and observed effect count is within the consumption bound"
+        ]
+      },
+      "O1": {
+        "outcome": {
+          "Evaluated": "Unadjudicable"
+        },
+        "evidence_used": [],
+        "reasons": [
+          "committed subject-role relation cannot be recovered"
+        ]
+      },
+      "O2": {
+        "outcome": {
+          "Evaluated": "Violated"
+        },
+        "evidence_used": [
+          "admission-record",
+          "identity-fact",
+          "receipt-effect-1",
+          "request-record",
+          "snapshot-1"
+        ],
+        "reasons": [
+          "subject and every required role match the trusted fact",
+          "the actual basis does not match, or is revoked, in the snapshot that was used",
+          "a prior positive final admission exists with an independent execution-chain link",
+          "admission used the applicable state and honoured effective restrictions",
+          "action content matches and observed effect count is within the consumption bound"
+        ]
+      },
+      "O3": {
+        "outcome": {
+          "NotApplicable": {
+            "reason": "no matching effective, un-withdrawn restriction at final admission (pre-admitted in-flight actions included)"
+          }
+        },
+        "evidence_used": [],
+        "reasons": [
+          "no matching effective, un-withdrawn restriction at final admission (pre-admitted in-flight actions included)"
+        ]
+      }
+    },
+    "accountability": {
+      "outcome": {
+        "Evaluated": "Unadjudicable"
+      },
+      "evidence_used": [
+        "receipt-effect-1"
+      ],
+      "reasons": [
+        "insufficient evidence; absence alone does not prove permanent loss"
+      ]
+    }
+  },
+  "expected_property": "G3",
+  "expected_verdict": "Violated",
+  "expected_accountability": null,
+  "expectation_matched": true,
+  "eligible_progress": null
+}

@@ -1,0 +1,220 @@
+[
+  {
+    "point": 1,
+    "kind": "initial authority",
+    "detail": {
+      "at": 1,
+      "bases": [
+        {
+          "delegation": null,
+          "expires_at": null,
+          "id": "grant-A",
+          "issued_at": 1,
+          "max_amount": 2000,
+          "operation": "transfer",
+          "recipients": [
+            "X"
+          ],
+          "resource": "ledger",
+          "role": "Requester",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        },
+        {
+          "delegation": null,
+          "expires_at": null,
+          "id": "grant-B",
+          "issued_at": 1,
+          "max_amount": 2000,
+          "operation": "transfer",
+          "recipients": [
+            "X"
+          ],
+          "resource": "ledger",
+          "role": "Requester",
+          "subject": {
+            "domain": "research",
+            "id": "B",
+            "kind": "AIActor"
+          }
+        }
+      ],
+      "reauthorizations": [],
+      "revocations": [],
+      "version": 1
+    }
+  },
+  {
+    "point": 3,
+    "kind": "governance state update",
+    "detail": {
+      "at": 3,
+      "bases": [
+        {
+          "delegation": null,
+          "expires_at": null,
+          "id": "grant-A",
+          "issued_at": 1,
+          "max_amount": 2000,
+          "operation": "transfer",
+          "recipients": [
+            "X"
+          ],
+          "resource": "ledger",
+          "role": "Requester",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        },
+        {
+          "delegation": null,
+          "expires_at": null,
+          "id": "grant-B",
+          "issued_at": 1,
+          "max_amount": 2000,
+          "operation": "transfer",
+          "recipients": [
+            "X"
+          ],
+          "resource": "ledger",
+          "role": "Requester",
+          "subject": {
+            "domain": "research",
+            "id": "B",
+            "kind": "AIActor"
+          }
+        },
+        {
+          "delegation": null,
+          "expires_at": null,
+          "id": "independent-grant",
+          "issued_at": 1,
+          "max_amount": 2000,
+          "operation": "transfer",
+          "recipients": [
+            "X"
+          ],
+          "resource": "ledger",
+          "role": "Requester",
+          "subject": {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        }
+      ],
+      "reauthorizations": [],
+      "revocations": [
+        {
+          "effective_at": 3,
+          "id": "revoke-1",
+          "operation": "transfer",
+          "resource": "ledger",
+          "target": {
+            "Basis": "grant-A"
+          }
+        }
+      ],
+      "version": 2
+    }
+  },
+  {
+    "point": 4,
+    "kind": "request",
+    "detail": {
+      "action": {
+        "amount": 1000,
+        "operation": "transfer",
+        "recipient": "X",
+        "resource": "ledger"
+      },
+      "at": 4,
+      "chain": "chain-1",
+      "id": "request-1",
+      "roles": {
+        "Executor": [
+          {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        ],
+        "Requester": [
+          {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        ]
+      },
+      "subject": {
+        "domain": "research",
+        "id": "A",
+        "kind": "AIActor"
+      }
+    }
+  },
+  {
+    "point": 5,
+    "kind": "final admission",
+    "detail": {
+      "action": {
+        "amount": 1000,
+        "operation": "transfer",
+        "recipient": "X",
+        "resource": "ledger"
+      },
+      "actual_basis": "grant-A",
+      "at": 5,
+      "chain": "chain-1",
+      "consumption": "SingleUse",
+      "decision": "Allow",
+      "id": "admission-1",
+      "observed_version": 1,
+      "request_id": "request-1",
+      "roles": {
+        "Executor": [
+          {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        ],
+        "Requester": [
+          {
+            "domain": "research",
+            "id": "A",
+            "kind": "AIActor"
+          }
+        ]
+      },
+      "subject": {
+        "domain": "research",
+        "id": "A",
+        "kind": "AIActor"
+      }
+    }
+  },
+  {
+    "point": 6,
+    "kind": "real ledger effect",
+    "detail": {
+      "action": {
+        "amount": 1000,
+        "operation": "transfer",
+        "recipient": "X",
+        "resource": "ledger"
+      },
+      "at": 6,
+      "chain": "chain-1",
+      "id": "effect-1",
+      "ledger_sequence": 1,
+      "request_id": "request-1"
+    }
+  }
+]

@@ -1,0 +1,309 @@
+{
+  "strong_collisions": [],
+  "weak_collisions": [
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 0,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 0,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    },
+    {
+      "left": {
+        "actor": 0,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": true
+      },
+      "left_target": "deny",
+      "observation": "credential_valid=true;operation=read",
+      "right": {
+        "actor": 1,
+        "credential_valid": true,
+        "current_alias": 1,
+        "prior_actor": 1,
+        "suspended": false
+      },
+      "right_target": "allow"
+    }
+  ]
+}
