@@ -9,9 +9,9 @@
 use serde::{Deserialize, Serialize};
 use srg_core::*;
 use thiserror::Error;
-/// 适配所针对的 SoulAuth 提交：`/api/auth/introspect` 与 `session.methods` /
-/// `session.credential_refs` 首次出现的那一版。
-pub const REFERENCE_COMMIT: &str = "1acef4935e2c13faadf378cd6bb4e60d96d9a163";
+/// 适配所针对的 SoulAuth 提交：release v0.4.0，`/api/auth/introspect` 与
+/// `session.methods` / `session.credential_refs` 首次发布的那一版。
+pub const REFERENCE_COMMIT: &str = "82ff8ae7f85e01ca64db87467ec11e57f45f1383";
 /// 认证事实所在的端点。持有者对自己的自省；不是 RFC 7662。
 pub const INTROSPECTION_PATH: &str = "/api/auth/introspect";
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
