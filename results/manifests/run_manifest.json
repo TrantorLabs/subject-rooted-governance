@@ -3,8 +3,8 @@
   "artifact_version": "0.1.1",
   "cargo_lock_sha256": "7658d075cf22b0e10bbf30bcbafa0bea2da77513d48308c65dfc8080ba806171",
   "contract": "ReferenceContractV1",
-  "evidence_source_commit": "3d52a313ba30a0b551447f4ca942e3740916e749",
-  "evidence_source_dirty": true,
+  "evidence_source_commit": "ff032885c0bbb00d11792c3189bb1a4293db6ad8",
+  "evidence_source_dirty": false,
   "formal_core_sha256": "e4d6c9414d02bd480f11a9a8d71203318642d98459b3bb44eac53683160ee5a2",
   "formal_observability_sha256": "df2d0f925435634dc6f078e4c37ee2e2a3558f8e0420abd4545e4903340a70a2",
   "identity_provider": "deterministic",
@@ -13,5 +13,5 @@
   "scenario_registry": "S00-S19-v1",
   "soulauth_live": "EXECUTED against SoulAuth 82ff8ae7f85e01ca64db87467ec11e57f45f1383 (results/live/soulauth)",
   "source_sha256": "579bc1e146fc6414b0fdf0b097ffb5a04a7925055b8bd7bca4160f60fbd3f228",
-  "timestamp_unix": 1789974532
+  "timestamp_unix": 1789975759
 }
