@@ -26,7 +26,7 @@ fn sealed(e: &EvidenceSet, c: &ResearchContract, q: &QueryContext, ch: &str) -> 
         .iter()
         .any(|s| c.accepts("seal", &s.source) && s.through >= q.now && s.channels.contains(ch))
 }
-fn request<'a>(
+pub(crate) fn request<'a>(
     e: &'a EvidenceSet,
     c: &ResearchContract,
     q: &QueryContext,
@@ -35,7 +35,7 @@ fn request<'a>(
         .into_iter()
         .find(|r| r.fact.id == q.request_id)
 }
-fn admissions<'a>(
+pub(crate) fn admissions<'a>(
     e: &'a EvidenceSet,
     c: &ResearchContract,
     q: &QueryContext,
@@ -58,7 +58,7 @@ fn effects<'a>(
     }
     m.into_values().collect()
 }
-fn identities<'a>(
+pub(crate) fn identities<'a>(
     e: &'a EvidenceSet,
     c: &ResearchContract,
     q: &QueryContext,
@@ -297,7 +297,7 @@ impl PropertyChecker for ProvenanceChecker {
 }
 
 /// 检查器自己的匹配计算；不调用被测授权服务的决策函数。
-fn basis_matches(b: &AuthorityBasis, r: &ActionRequest, at: LogicalPoint) -> bool {
+pub(crate) fn basis_matches(b: &AuthorityBasis, r: &ActionRequest, at: LogicalPoint) -> bool {
     b.subject == r.subject
         && r.roles
             .get(&b.role)
@@ -309,7 +309,7 @@ fn basis_matches(b: &AuthorityBasis, r: &ActionRequest, at: LogicalPoint) -> boo
         && b.issued_at <= at
         && b.expires_at.is_none_or(|t| at < t)
 }
-fn revoked(
+pub(crate) fn revoked(
     s: &AuthoritySnapshot,
     b: &AuthorityBasis,
     r: &ActionRequest,
@@ -352,7 +352,7 @@ fn snapshot<'a>(
         .into_iter()
         .find(|s| s.fact.version == v)
 }
-fn applicable_snapshot<'a>(
+pub(crate) fn applicable_snapshot<'a>(
     e: &'a EvidenceSet,
     c: &ResearchContract,
     at: LogicalPoint,

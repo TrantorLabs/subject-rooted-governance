@@ -11,7 +11,10 @@
    `summary.json` 逐字节相同。CI 用 `git diff --exit-code` 守这一条。`manifests/run_manifest.json` 带
    时间戳与工具链版本，允许不同；`results/validation/` 与 `results/formal/*.log` 不入库。
 6. 源码指纹（`run_manifest.json.source_sha256`）覆盖除 `results/`、`target/`、`.git/` 外的全部文件，
-   结果文件不参与自己的指纹，避免循环。
+   结果文件不参与自己的指纹，避免循环。清单里的 `evidence_source_commit` 是生成这批证据时的
+   源码提交，**不是** release 提交：证据入库之后才有 release 提交，而那一步只改清单本身；
+   两个提交的 `source_sha256` 相同。release 的 tag、commit 与归档摘要写在 release 说明里。
+   三者各是各的：evidence source commit ≠ release commit ≠ archive digest。
 7. 形式层：`TLA2TOOLS_JAR=/path/to/tla2tools.jar bash scripts/check-formal.sh`。CI 使用 tla2tools
    v1.8.0，SHA-256 `9d36716ffb5e49d1ba8fae4651eba59f3189887e12eb90e204a42d2e6e993fef`。负例配置的
    TLC 退出码 12（安全性质反例）是预期结果；其他非零退出码是工具或模型错误，脚本会终止而不是把它

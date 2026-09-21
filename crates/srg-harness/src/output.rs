@@ -104,11 +104,16 @@ fn live_status(root: &Path) -> String {
         _ => "NOT_RUN".into(),
     }
 }
+/// 清单里的 `evidence_source_commit` 是**生成这批证据的源码提交**，不是 release 提交。
+/// 两者天然不同：证据提交进仓库之后才有 release 提交，而那个提交里唯一变化的就是
+/// 这份清单本身。release 的 tag / commit / 归档摘要写在 release 说明里；三者各是各的：
+/// evidence source commit ≠ release commit ≠ archive digest。`source_sha256` 才是把
+/// 证据和源码绑在一起的东西 —— 它不含 results/，所以两个提交算出来一样。
 pub fn write_manifest(out: &Path, root: &Path) -> AnyResult<()> {
     let hash = |p: &Path| fs::read(p).ok().map(|b| format!("{:x}", Sha256::digest(b)));
     save(
         &out.join("manifests/run_manifest.json"),
-        &serde_json::json!({"artifact_version":env!("CARGO_PKG_VERSION"),"source_sha256":source_fingerprint(root)?,"cargo_lock_sha256":hash(&root.join("Cargo.lock")),"rustc":cmd("rustc",&["--version","--verbose"]),"git_commit":cmd("git",&["rev-parse","HEAD"]),"git_dirty":cmd("git",&["status","--porcelain"]).map(|s|!s.is_empty()),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"contract":"ReferenceContractV1","scenario_registry":"S00-S19-v1","identity_provider":"deterministic","soulauth_live":live_status(root),"formal_core_sha256":hash(&root.join("formal/P2_Core.tla")),"formal_observability_sha256":hash(&root.join("formal/P2_Observability.tla")),"timestamp_unix":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs()}),
+        &serde_json::json!({"artifact_version":env!("CARGO_PKG_VERSION"),"source_sha256":source_fingerprint(root)?,"cargo_lock_sha256":hash(&root.join("Cargo.lock")),"rustc":cmd("rustc",&["--version","--verbose"]),"evidence_source_commit":cmd("git",&["rev-parse","HEAD"]),"evidence_source_dirty":cmd("git",&["status","--porcelain"]).map(|s|!s.is_empty()),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"contract":"ReferenceContractV1","scenario_registry":"S00-S19-v1","identity_provider":"deterministic","soulauth_live":live_status(root),"formal_core_sha256":hash(&root.join("formal/P2_Core.tla")),"formal_observability_sha256":hash(&root.join("formal/P2_Observability.tla")),"timestamp_unix":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs()}),
     )
 }
 pub fn label(v: &CheckOutcome<PropertyVerdict>) -> &'static str {

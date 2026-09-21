@@ -694,7 +694,7 @@ dependencies = [
 
 [[package]]
 name = "srg-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde",
  "serde_json",
@@ -703,7 +703,7 @@ dependencies = [
 
 [[package]]
 name = "srg-explorer"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "clap",
  "serde",
@@ -714,7 +714,7 @@ dependencies = [
 
 [[package]]
 name = "srg-harness"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "clap",
  "serde",
@@ -726,7 +726,7 @@ dependencies = [
 
 [[package]]
 name = "srg-live"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "base64",
  "clap",
@@ -743,7 +743,7 @@ dependencies = [
 
 [[package]]
 name = "srg-soulauth"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde",
  "serde_json",

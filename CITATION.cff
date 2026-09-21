@@ -7,8 +7,8 @@ authors:
     address: Singapore
 repository-code: https://github.com/TrantorLabs/subject-rooted-governance
 license: Apache-2.0
-version: 0.1.0
-date-released: 2026-09-19
+version: 0.1.1
+date-released: 2026-09-21
 abstract: >-
   Companion artifact of "Persistent Subjecthood and Responsibility Black Holes: A Subject-Rooted
   Governance Architecture for Long-Lived AI Actors". A Rust reference harness with independent
