@@ -44,3 +44,36 @@ jobs:
         with:
           name: formal-logs
           path: results/formal/
+  live-soulauth:
+    # 对着真正运行的 SoulAuth 走完 AIActor 认证（CONF-01 R21–R23）。天然不确定，只执行、不 diff。
+    runs-on: ubuntu-latest
+    env:
+      SOULAUTH_REPO: TrantorLabs/SoulAuth
+      SOULAUTH_REF: 1acef4935e2c13faadf378cd6bb4e60d96d9a163
+      SURREAL_VERSION: v3.2.4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOULAUTH_REPO }}
+          ref: ${{ env.SOULAUTH_REF }}
+          path: soulauth
+      - name: Toolchain
+        run: rustup update stable --no-self-update && rustup default stable
+      - name: SurrealDB
+        run: |
+          curl -sSf https://install.surrealdb.com | sh -s -- --version "$SURREAL_VERSION"
+          echo "$HOME/.surrealdb" >> "$GITHUB_PATH"
+      - name: Build SoulAuth at the pinned commit
+        run: cd soulauth && cargo build --locked
+      - name: Live suite
+        run: SOULAUTH_SRC="$PWD/soulauth" bash scripts/live-soulauth.sh
+      - name: The adapter's reference commit is the commit we ran against
+        run: |
+          grep -q "\"$SOULAUTH_REF\"" crates/srg-soulauth/src/lib.rs
+          grep -q "\"soulauth_commit\": \"$SOULAUTH_REF\"" results/live/soulauth/manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-soulauth-evidence
+          path: results/live/

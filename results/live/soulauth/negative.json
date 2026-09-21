@@ -1,0 +1,5 @@
+{
+  "no_token_status": 401,
+  "forged_token_status": 401,
+  "replayed_nonce_status": 401
+}

@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Live SoulAuth integration (`crates/srg-live`, `scripts/live-soulauth.sh`).** Authenticates
+  an AI actor against a running SoulAuth end to end — challenge, Ed25519 signature, session
+  token, `GET /api/auth/introspect` — and hands the returned authentication fact to
+  `srg-soulauth`, which now consumes the introspection response (fact plus session
+  projection) and carries the session id into `VerifiedActorFact`. Negative checks (missing,
+  forged, replayed) and an optional human password session are recorded too. Evidence under
+  `results/live/soulauth/`; the core run manifest reports the last live execution instead of
+  a bare `NOT_RUN`. The adapter is pinned to the SoulAuth commit that introduced the endpoint.
+
 ## [0.1.0] - 2026-09-19
 
 First public release: the executable companion artifact of *Persistent Subjecthood and

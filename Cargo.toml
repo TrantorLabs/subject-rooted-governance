@@ -1,5 +1,11 @@
 [workspace]
-members = ["crates/srg-core", "crates/srg-harness", "crates/srg-explorer", "crates/srg-soulauth"]
+members = [
+    "crates/srg-core",
+    "crates/srg-harness",
+    "crates/srg-explorer",
+    "crates/srg-soulauth",
+    "crates/srg-live",
+]
 resolver = "2"
 
 [workspace.package]

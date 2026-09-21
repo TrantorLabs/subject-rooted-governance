@@ -351,6 +351,7 @@ mod readme {
             "crates/srg-core/src/lib.rs",
             "crates/srg-explorer/src/lib.rs",
             "crates/srg-soulauth/src/lib.rs",
+            "crates/srg-live/src/main.rs",
             "crates/srg-harness/src/composition.rs",
             "crates/srg-harness/tests/conformance.rs",
         ] {

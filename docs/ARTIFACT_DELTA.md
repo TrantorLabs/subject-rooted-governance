@@ -38,8 +38,16 @@
 
 - **类别：** Evidence Gap
 - **正文：** §7.6「采用后续公开的 SoulAuth v0.3.0 … 尚未启动真实 SoulAuth 服务完成端到端认证」。
-- **工件：** 与正文一致。`srg-soulauth` 钉在 v0.3.0（commit `0830d1733b911558484006d61c463e8b90e9eab5`），按 `AuthenticationFact { actor_identity_id, actor_kind, methods, authenticated_at, credential_refs }` 适配；`AuthenticatedFactTransport` 由集成方实现。每份 `run_manifest.json` 记录 `identity_provider: deterministic`、`soulauth_live: NOT_RUN`。
-- **状态：** CLOSED（正文措辞保持「contract-level」；R21–R23 未做，论文不得写 live integration）。
+- **工件：** SoulAuth v0.3.0 的公开契约没有任何端点返回认证事实（它只在服务内部与 `login_success`
+  审计 `details` 里）。SoulAuth 侧因此新增 `GET /api/auth/introspect`（会话行同时开始保存完整的
+  `methods` / `credential_refs`），本工件新增 `srg-live`：对着真正运行的 SoulAuth 完成
+  挑战 → Ed25519 签名 → 令牌 → 自省 → `VerifiedActorFact`，并检查无令牌 / 伪造令牌 / 重放 nonce
+  都被拒。证据在 `results/live/soulauth/`；`srg_soulauth::REFERENCE_COMMIT` 钉住引入该端点的
+  SoulAuth 提交，live 清单记录服务实际构建自哪个提交。
+- **R21–R23：** R21 固定 SoulAuth 提交 ✓；R22 真正运行 SoulAuth 认证 ✓（AIActor 与人类口令两条）；
+  R23 保存原始证据 ✓。正文回填时 §7.6 可改为「已对钉定的 SoulAuth 提交完成 live 集成」，
+  并写明该端点自 SoulAuth 0.4.0 起可用。
+- **状态：** CLOSED（回填正文时把「尚未」删去）。
 
 ## D-04｜形式模型的一个真实缺陷：`ProvenanceLoss` 使 `Execute` 不可用
 
@@ -90,7 +98,7 @@
 
 ## 回填清单（v0.1.0 发布后，论文一次性完成）
 
-第 7 章：仓库 `TrantorLabs/subject-rooted-governance`、四个 crate 的分工、TLA+ 已执行（tla2tools v1.8.0）、SoulAuth 契约级适配（非 live）、release pin（tag / commit / 归档 SHA-256 / DOI）。
+第 7 章：仓库 `TrantorLabs/subject-rooted-governance`、五个 crate 的分工、TLA+ 已执行（tla2tools v1.8.0）、SoulAuth live 集成（`/api/auth/introspect`，钉定提交）、release pin（tag / commit / 归档 SHA-256 / DOI）。
 
 第 8 章：表 5 用 `results/tables/baseline_matrix.csv`；表 6 用 `results/formal/tlc_matrix.json` + `results/raw/explorer/core.json`（状态数 9 / 9–11，不再是 72 / 174…）；表 7 用 `results/tables/scenario_matrix.csv`（B3 那 20 行即 README 中的矩阵）；RBH 四判定用 `rbh_matrix.csv`；G6 消费用 S15；P4 用 `p4_matrix.csv`。删除 §8.2.3 与 §8.5 的 0.778 / 1.000 叙述。
 

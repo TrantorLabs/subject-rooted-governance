@@ -84,11 +84,31 @@ pub fn write_run(out: &Path, r: &ScenarioRun) -> AnyResult<()> {
     )?;
     Ok(())
 }
+/// 核心实验永远用确定性身份提供者；这里只**转述** live 套件最近一次留下的清单，
+/// 不替它声称什么：没有清单就是 NOT_RUN，有清单就照抄它记录的 SoulAuth 提交。
+fn live_status(root: &Path) -> String {
+    let path = root.join("results/live/soulauth/manifest.json");
+    let Ok(text) = fs::read_to_string(&path) else {
+        return "NOT_RUN".into();
+    };
+    let Ok(m) = serde_json::from_str::<serde_json::Value>(&text) else {
+        return "NOT_RUN".into();
+    };
+    match (
+        m.get("soulauth_live").and_then(|v| v.as_str()),
+        m.get("soulauth_commit").and_then(|v| v.as_str()),
+    ) {
+        (Some("EXECUTED"), Some(commit)) => {
+            format!("EXECUTED against SoulAuth {commit} (results/live/soulauth)")
+        }
+        _ => "NOT_RUN".into(),
+    }
+}
 pub fn write_manifest(out: &Path, root: &Path) -> AnyResult<()> {
     let hash = |p: &Path| fs::read(p).ok().map(|b| format!("{:x}", Sha256::digest(b)));
     save(
         &out.join("manifests/run_manifest.json"),
-        &serde_json::json!({"artifact_version":env!("CARGO_PKG_VERSION"),"source_sha256":source_fingerprint(root)?,"cargo_lock_sha256":hash(&root.join("Cargo.lock")),"rustc":cmd("rustc",&["--version","--verbose"]),"git_commit":cmd("git",&["rev-parse","HEAD"]),"git_dirty":cmd("git",&["status","--porcelain"]).map(|s|!s.is_empty()),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"contract":"ReferenceContractV1","scenario_registry":"S00-S19-v1","identity_provider":"deterministic","soulauth_live":"NOT_RUN","formal_core_sha256":hash(&root.join("formal/P2_Core.tla")),"formal_observability_sha256":hash(&root.join("formal/P2_Observability.tla")),"timestamp_unix":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs()}),
+        &serde_json::json!({"artifact_version":env!("CARGO_PKG_VERSION"),"source_sha256":source_fingerprint(root)?,"cargo_lock_sha256":hash(&root.join("Cargo.lock")),"rustc":cmd("rustc",&["--version","--verbose"]),"git_commit":cmd("git",&["rev-parse","HEAD"]),"git_dirty":cmd("git",&["status","--porcelain"]).map(|s|!s.is_empty()),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"contract":"ReferenceContractV1","scenario_registry":"S00-S19-v1","identity_provider":"deterministic","soulauth_live":live_status(root),"formal_core_sha256":hash(&root.join("formal/P2_Core.tla")),"formal_observability_sha256":hash(&root.join("formal/P2_Observability.tla")),"timestamp_unix":std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs()}),
     )
 }
 pub fn label(v: &CheckOutcome<PropertyVerdict>) -> &'static str {

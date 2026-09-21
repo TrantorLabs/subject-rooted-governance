@@ -1,0 +1,11 @@
+{
+  "soulauth_live": "EXECUTED",
+  "base_url": "http://127.0.0.1:8311",
+  "soulauth_commit": "1acef4935e2c13faadf378cd6bb4e60d96d9a163",
+  "soulauth_reference_commit": "1acef4935e2c13faadf378cd6bb4e60d96d9a163",
+  "introspection_path": "/api/auth/introspect",
+  "artifact_version": "0.1.0",
+  "timestamp_unix": 1789958170,
+  "ai_actor": true,
+  "human": true
+}
