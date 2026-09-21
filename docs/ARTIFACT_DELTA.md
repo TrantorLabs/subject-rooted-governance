@@ -43,7 +43,7 @@
   `methods` / `credential_refs`），本工件新增 `srg-live`：对着真正运行的 SoulAuth 完成
   挑战 → Ed25519 签名 → 令牌 → 自省 → `VerifiedActorFact`，并检查无令牌 / 伪造令牌 / 重放 nonce
   都被拒。证据在 `results/live/soulauth/`；`srg_soulauth::REFERENCE_COMMIT` 钉住引入该端点的
-  SoulAuth 提交，live 清单记录服务实际构建自哪个提交。
+  SoulAuth v0.4.0（`82ff8ae`），live 清单记录服务实际构建自哪个提交。
 - **R21–R23：** R21 固定 SoulAuth 提交 ✓；R22 真正运行 SoulAuth 认证 ✓（AIActor 与人类口令两条）；
   R23 保存原始证据 ✓。正文回填时 §7.6 可改为「已对钉定的 SoulAuth 提交完成 live 集成」，
   并写明该端点自 SoulAuth 0.4.0 起可用。

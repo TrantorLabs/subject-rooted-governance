@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SOULAUTH_REPO: TrantorLabs/SoulAuth
-      SOULAUTH_REF: 1acef4935e2c13faadf378cd6bb4e60d96d9a163
+      SOULAUTH_REF: 82ff8ae7f85e01ca64db87467ec11e57f45f1383
       SURREAL_VERSION: v3.2.4
     steps:
       - uses: actions/checkout@v4

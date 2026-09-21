@@ -156,7 +156,7 @@ It also checks that the fact endpoint refuses a missing token, a forged token an
 SOULAUTH_SRC=/path/to/SoulAuth bash scripts/live-soulauth.sh
 ```
 
-The script starts SurrealDB and SoulAuth from that checkout, registers an operator and an AI actor whose private key never leaves the script, runs `srg-live`, and stops everything. The adapter is written against `srg_soulauth::REFERENCE_COMMIT`, the SoulAuth commit that introduced `/api/auth/introspect`; the committed evidence was produced against that same commit. The live suite is not part of the deterministic core: its nonces, ids and timestamps differ on every run, so CI re-executes it but does not diff it.
+The script starts SurrealDB and SoulAuth from that checkout, registers an operator and an AI actor whose private key never leaves the script, runs `srg-live`, and stops everything. The adapter is written against `srg_soulauth::REFERENCE_COMMIT`, SoulAuth v0.4.0 (`82ff8ae`), the release that introduced `/api/auth/introspect`; the committed evidence was produced against that same commit. The live suite is not part of the deterministic core: its nonces, ids and timestamps differ on every run, so CI re-executes it but does not diff it.
 
 The adapter only turns an authentication fact into a `VerifiedActorFact`. It reads no authority and produces no governance decision — identity is not authority.
 

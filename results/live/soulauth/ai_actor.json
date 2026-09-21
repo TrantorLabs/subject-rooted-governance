@@ -1,48 +1,48 @@
 {
   "challenge": {
-    "actor_id": "actor_identity:1h7rrxls2h6lu3t73mee",
-    "nonce": "MweSyTbcYkMD-8UoxxBVwIkjDfX7WZk2E_6ebXpoKPg",
-    "expires_at": 1789958289,
-    "payload": "soulauth-ai-actor-auth/v1\nhttp://127.0.0.1:8311\nactor_identity:1h7rrxls2h6lu3t73mee\nMweSyTbcYkMD-8UoxxBVwIkjDfX7WZk2E_6ebXpoKPg"
+    "actor_id": "actor_identity:ax07p4fflrkhl549r5b7",
+    "nonce": "egndA0ro1ikewmZbTpPv6nb8E0lh2J0ayNPmv28vvbQ",
+    "expires_at": 1789961999,
+    "payload": "soulauth-ai-actor-auth/v1\nhttp://127.0.0.1:8311\nactor_identity:ax07p4fflrkhl549r5b7\negndA0ro1ikewmZbTpPv6nb8E0lh2J0ayNPmv28vvbQ"
   },
-  "signature": "v7LC_LXin8Oi9PYdcN_pzBZQEMLkPWEBrgw8zmFDRqr4X01oVL-AG-AvDnqkdZp0Na4GD6uM5h2_24K6CK3uBg",
+  "signature": "GLQG_J2RfeOcBvVjlH5G_5Acm9xAxT-4vQ7k7UcFotFJ71DYg-VOAXsUt3iF4s9-b383Ct-I9_6Jpm71NX3QAw",
   "authenticate": {
-    "actor_id": "actor_identity:1h7rrxls2h6lu3t73mee",
+    "actor_id": "actor_identity:ax07p4fflrkhl549r5b7",
     "credential_label": "srg-live",
     "token": {
-      "token_sha256": "cee452c450294d6f569eed6271fed72c5c1467024eb9eda7fb1edbf51f702838",
-      "expires_at": 1790044569
+      "token_sha256": "36019b2d756e1b63c08b95104c4500fba5d89a17239846b0e8cdd51825693039",
+      "expires_at": 1790048279
     }
   },
   "introspection": {
     "authentication": {
-      "actor_identity_id": "actor_identity:1h7rrxls2h6lu3t73mee",
+      "actor_identity_id": "actor_identity:ax07p4fflrkhl549r5b7",
       "actor_kind": "ai_actor",
       "methods": [
         "ed25519_key"
       ],
-      "authenticated_at": 1789958169,
+      "authenticated_at": 1789961879,
       "credential_refs": [
-        "ai_actor_credential:ru43rj7fnwvo4ep3db2e"
+        "ai_actor_credential:rqmopjgqj4buhbnnzr63"
       ]
     },
     "session": {
-      "id": "16800b94-cf40-47a7-adcf-f2f2678f9ce2",
-      "created_at": 1789958169,
-      "expires_at": 1790044569
+      "id": "6476822a-bcdb-4e2f-9ca9-f8e4a3b9766d",
+      "created_at": 1789961879,
+      "expires_at": 1790048279
     }
   },
   "verified_actor_fact": {
     "request_id": "live-ai-actor",
     "actor": {
       "domain": "soulauth",
-      "id": "actor_identity:1h7rrxls2h6lu3t73mee",
+      "id": "actor_identity:ax07p4fflrkhl549r5b7",
       "kind": "AIActor"
     },
     "credentials": [
-      "ai_actor_credential:ru43rj7fnwvo4ep3db2e"
+      "ai_actor_credential:rqmopjgqj4buhbnnzr63"
     ],
-    "session": "16800b94-cf40-47a7-adcf-f2f2678f9ce2",
+    "session": "6476822a-bcdb-4e2f-9ca9-f8e4a3b9766d",
     "runtime": null,
     "roles": {},
     "at": 1

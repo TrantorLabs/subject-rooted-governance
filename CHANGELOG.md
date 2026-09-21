@@ -11,7 +11,7 @@
   projection) and carries the session id into `VerifiedActorFact`. Negative checks (missing,
   forged, replayed) and an optional human password session are recorded too. Evidence under
   `results/live/soulauth/`; the core run manifest reports the last live execution instead of
-  a bare `NOT_RUN`. The adapter is pinned to the SoulAuth commit that introduced the endpoint.
+  a bare `NOT_RUN`. The adapter is pinned to SoulAuth v0.4.0 (`82ff8ae`), the release that introduced the endpoint.
 
 ## [0.1.0] - 2026-09-19
 

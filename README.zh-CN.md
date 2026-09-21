@@ -156,7 +156,7 @@ srg-soulauth::SoulAuthIdentityProvider  →  VerifiedActorFact
 SOULAUTH_SRC=/path/to/SoulAuth bash scripts/live-soulauth.sh
 ```
 
-脚本从那个检出启动 SurrealDB 与 SoulAuth，注册一个操作员和一个 AIActor（私钥从不离开脚本），运行 `srg-live`，然后收拾干净。适配器按 `srg_soulauth::REFERENCE_COMMIT`——引入 `/api/auth/introspect` 的那个 SoulAuth 提交——编写；提交进仓库的证据就是对着同一个提交产生的。live 套件不在确定性核心之内：每次运行的 nonce、id、时间戳都不同，所以 CI 重新执行它但不做 diff。
+脚本从那个检出启动 SurrealDB 与 SoulAuth，注册一个操作员和一个 AIActor（私钥从不离开脚本），运行 `srg-live`，然后收拾干净。适配器按 `srg_soulauth::REFERENCE_COMMIT`——引入 `/api/auth/introspect` 的 SoulAuth v0.4.0（`82ff8ae`）——编写；提交进仓库的证据就是对着同一个提交产生的。live 套件不在确定性核心之内：每次运行的 nonce、id、时间戳都不同，所以 CI 重新执行它但不做 diff。
 
 适配器只做一件事：把认证事实变成 `VerifiedActorFact`。它不读任何授权，也不产生任何治理决定——身份不是授权。
 

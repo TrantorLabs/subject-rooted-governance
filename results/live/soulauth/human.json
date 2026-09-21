@@ -1,38 +1,38 @@
 {
   "email": "live-operator@example.com",
   "token": {
-    "token_sha256": "d1602500701edd65c6468b27a0063968f4cfd56ff7962b0b68e583a2d0517a80",
-    "expires_at": 1790044570
+    "token_sha256": "b3ed5470cbe96e3408f800aa8847522f14a72802ed095357a8a4ad4494578abd",
+    "expires_at": 1790048280
   },
   "introspection": {
     "authentication": {
-      "actor_identity_id": "actor_identity:e1d69f44-4daf-4a1e-b568-c8439a6e4a94",
+      "actor_identity_id": "actor_identity:2d32244f-5535-4f2f-a5d7-cb06b9215583",
       "actor_kind": "human",
       "methods": [
         "password"
       ],
-      "authenticated_at": 1789958170,
+      "authenticated_at": 1789961880,
       "credential_refs": [
-        "credential:80032b4a-f59c-480c-9d98-dfc966addb0f"
+        "credential:51086a70-a6a0-48ce-8e42-79171e4f3c66"
       ]
     },
     "session": {
-      "id": "47894e3f-fde8-4eef-b358-c83bb54e4634",
-      "created_at": 1789958170,
-      "expires_at": 1790044570
+      "id": "c86bd1c6-be69-455b-a51a-0cf097517472",
+      "created_at": 1789961880,
+      "expires_at": 1790048280
     }
   },
   "verified_actor_fact": {
     "request_id": "live-human",
     "actor": {
       "domain": "soulauth",
-      "id": "actor_identity:e1d69f44-4daf-4a1e-b568-c8439a6e4a94",
+      "id": "actor_identity:2d32244f-5535-4f2f-a5d7-cb06b9215583",
       "kind": "Human"
     },
     "credentials": [
-      "credential:80032b4a-f59c-480c-9d98-dfc966addb0f"
+      "credential:51086a70-a6a0-48ce-8e42-79171e4f3c66"
     ],
-    "session": "47894e3f-fde8-4eef-b358-c83bb54e4634",
+    "session": "c86bd1c6-be69-455b-a51a-0cf097517472",
     "runtime": null,
     "roles": {},
     "at": 1
