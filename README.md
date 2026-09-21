@@ -19,7 +19,7 @@ It is a research harness, not a product: no IAM, no policy language, no real pay
 | P3 referential integrity ⇏ enforcement effectiveness | S12 (stale revocation) + explorer `StaleState` | G1 satisfied while O3 is violated |
 | P4 bounded composition | `crates/srg-harness/src/composition.rs` | P4(a) retrospective closure on six reference effects; P4(b) prospective revocation safety |
 | Formal core and two-world observability models | `formal/*.tla` | SANY + TLC executed; per-fault counterexample matrix cross-checked against the Rust search |
-| SoulAuth authentication fact (upstream identity) | `crates/srg-soulauth` | contract-level adapter pinned to SoulAuth v0.3.0; **no live service is run** |
+| SoulAuth authentication fact (upstream identity) | `crates/srg-soulauth` + `crates/srg-live` | adapter for `GET /api/auth/introspect`, pinned to a SoulAuth commit; the live suite authenticates an AI actor against a running SoulAuth and records the evidence |
 
 The four-valued verdict follows the paper's §3.8 exactly: **Satisfied** (every execution compatible with the evidence satisfies the property), **Violated** (every one violates it), **Unadjudicable** (compatible executions disagree), **EvidenceConflict** (no execution is compatible with the trusted evidence). A fifth label, **N/A**, marks a property with no applicable object — it is never counted as a pass.
 
@@ -28,7 +28,7 @@ The four-valued verdict follows the paper's §3.8 exactly: **Satisfied** (every 
 Rust 1.82 or later. No database, no network, no external identity service.
 
 ```bash
-cargo test --workspace --locked                 # 39 tests: core, checkers, scenarios, explorer, adapter
+cargo test --workspace --locked                 # 42 tests: core, checkers, scenarios, explorer, adapter, live suite
 cargo run --locked -p srg-harness -- run-all    # 20 scenarios × 4 baselines → results/raw, traces, evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 collisions and the 9-mutation bounded search
 cargo run --locked -p srg-harness -- tables     # paper tables from the raw files (never re-runs silently)
@@ -105,6 +105,7 @@ results/
 ├── raw/p4/                              composition instances and report
 ├── tables/                              scenario_matrix, baseline_matrix, g_ablation_matrix, rbh_matrix, p4_matrix
 ├── formal/{status,tlc_matrix}.json      the last SANY/TLC execution
+├── live/soulauth/                       the last live SoulAuth execution (non-deterministic by nature)
 ├── manifests/run_manifest.json          source fingerprint, Cargo.lock hash, toolchain, contract and registry ids
 └── summary.json
 ```
@@ -133,10 +134,31 @@ Not claimed:
 
 - A general proof of P4, or of the necessity or sufficiency of G1–G6 beyond the declared bounded models.
 - Any production, concurrency or partition-tolerance validation; any real funds.
-- A live SoulAuth integration. `srg-soulauth` adapts the `AuthenticationFact` shape of SoulAuth v0.3.0 (commit `0830d1733b911558484006d61c463e8b90e9eab5`) behind an `AuthenticatedFactTransport` trait that the integrator must implement over an authenticated channel; parsing JSON is not authentication. Every run manifest says `identity_provider: deterministic`, `soulauth_live: NOT_RUN`.
+- That the core results depend on SoulAuth. They do not: every core run uses the deterministic identity provider (`identity_provider: deterministic` in the run manifest). The live suite below is separate evidence about the upstream boundary, not a premise of P1–P4.
 - Anything about AI consciousness, intent or legal liability.
 
 The scenarios are directed witnesses, not a traffic sample; no number in `results/` is a probability of safety.
+
+## Live SoulAuth integration
+
+`crates/srg-live` runs the AI-actor authentication of a **real, running** SoulAuth end to end and hands the result to the adapter:
+
+```text
+POST /api/actors/challenge  →  sign the server's payload with the actor's Ed25519 key
+POST /api/actors/authenticate  →  session token
+GET  /api/auth/introspect  (Bearer)  →  the authentication fact behind that token
+srg-soulauth::SoulAuthIdentityProvider  →  VerifiedActorFact
+```
+
+It also checks that the fact endpoint refuses a missing token, a forged token and a replayed nonce (all 401), and optionally introspects a human password session. Evidence lands in `results/live/soulauth/` — challenge, signature, the introspection response, the `VerifiedActorFact`, the negative checks and a manifest naming the SoulAuth commit the service was built from. Tokens are recorded only as SHA-256 fingerprints.
+
+```bash
+SOULAUTH_SRC=/path/to/SoulAuth bash scripts/live-soulauth.sh
+```
+
+The script starts SurrealDB and SoulAuth from that checkout, registers an operator and an AI actor whose private key never leaves the script, runs `srg-live`, and stops everything. The adapter is written against `srg_soulauth::REFERENCE_COMMIT`, the SoulAuth commit that introduced `/api/auth/introspect`; the committed evidence was produced against that same commit. The live suite is not part of the deterministic core: its nonces, ids and timestamps differ on every run, so CI re-executes it but does not diff it.
+
+The adapter only turns an authentication fact into a `VerifiedActorFact`. It reads no authority and produces no governance decision — identity is not authority.
 
 ## Repository layout
 
@@ -144,9 +166,10 @@ The scenarios are directed witnesses, not a traffic sample; no number in `result
 crates/srg-core        types, reference contract, evidence envelopes, four-valued reduction — no I/O
 crates/srg-harness     controlled ledger (SUT), 10 checkers, 20 scenarios × 4 baselines, tables, composition
 crates/srg-explorer    finite worlds, observation collisions, bounded BFS with 8 mutations
-crates/srg-soulauth    SoulAuth v0.3.0 authentication-fact adapter behind a transport trait
+crates/srg-soulauth    SoulAuth authentication-fact adapter (/api/auth/introspect) behind a transport trait
+crates/srg-live        live suite: challenge → Ed25519 signature → token → introspection → VerifiedActorFact
 formal/                P2_Core.tla, P2_Observability.tla, per-fault TLC configurations
-scripts/               reproduce.sh, check-formal.sh
+scripts/               reproduce.sh, check-formal.sh, live-soulauth.sh
 docs/                  the three frozen design baselines (CONF-01, CORE-01, EVAL-01), formal↔Rust mapping,
                        reproducibility notes, and ARTIFACT_DELTA.md — every place the artifact and the
                        paper text still differ, classified

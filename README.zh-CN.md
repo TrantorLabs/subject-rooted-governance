@@ -19,7 +19,7 @@
 | P3 治理指向完整性 ⇏ 执行有效性 | S12（陈旧撤销）+ explorer 的 `StaleState` | G1 成立而 O3 违反 |
 | P4 有界组合 | `crates/srg-harness/src/composition.rs` | P4(a) 对六个参考效果的回溯闭合；P4(b) 前瞻撤销安全 |
 | 形式核心模型与双世界观察模型 | `formal/*.tla` | SANY + TLC 已执行；逐故障反例矩阵与 Rust 搜索逐格对照 |
-| SoulAuth 认证事实（上游身份） | `crates/srg-soulauth` | 契约级适配器，钉在 SoulAuth v0.3.0；**未运行真实服务** |
+| SoulAuth 认证事实（上游身份） | `crates/srg-soulauth` + `crates/srg-live` | 对 `GET /api/auth/introspect` 的适配器，钉在一个 SoulAuth 提交；live 套件对着真正运行的 SoulAuth 完成 AIActor 认证并留证据 |
 
 四值判定严格按论文 §3.8：**Satisfied**（所有与证据相容的执行都满足性质）、**Violated**（都违反）、**Unadjudicable**（相容执行之间结论不一致）、**EvidenceConflict**（没有任何执行与可信证据相容）。第五个标签 **N/A** 表示该性质没有适用对象——它从不被算作通过。
 
@@ -28,7 +28,7 @@
 Rust 1.82 及以上。不需要数据库、网络或外部身份服务。
 
 ```bash
-cargo test --workspace --locked                 # 39 个测试：核心、检查器、场景、explorer、适配器
+cargo test --workspace --locked                 # 42 个测试：核心、检查器、场景、explorer、适配器、live 套件
 cargo run --locked -p srg-harness -- run-all    # 20 场景 × 4 配置 → results/raw、traces、evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 碰撞与 9 个变体的有界搜索
 cargo run --locked -p srg-harness -- tables     # 从原始文件生成论文表格（从不静默重跑）
@@ -105,6 +105,7 @@ results/
 ├── raw/p4/                             组合实例与报告
 ├── tables/                             scenario_matrix、baseline_matrix、g_ablation_matrix、rbh_matrix、p4_matrix
 ├── formal/{status,tlc_matrix}.json     最近一次 SANY/TLC 执行
+├── live/soulauth/                      最近一次 live SoulAuth 执行（天然不确定）
 ├── manifests/run_manifest.json         源码指纹、Cargo.lock 哈希、工具链、契约与注册表标识
 └── summary.json
 ```
@@ -133,10 +134,31 @@ Rust explorer 是同一状态空间上的确定性 BFS，不替代 TLA+；`docs/
 
 - P4 的一般证明，或 G1–G6 在声明的有界模型之外的必要性 / 充分性。
 - 任何生产、并发或分区容错验证；任何真实资金。
-- 真实的 SoulAuth 集成。`srg-soulauth` 按 SoulAuth v0.3.0（commit `0830d1733b911558484006d61c463e8b90e9eab5`）的 `AuthenticationFact` 形状做适配，放在 `AuthenticatedFactTransport` trait 后面，由集成方在经过认证的信道上实现；解析 JSON 不是认证。每份运行清单都写着 `identity_provider: deterministic`、`soulauth_live: NOT_RUN`。
+- 核心结果依赖 SoulAuth。不依赖：每一次核心运行都用确定性身份提供者（运行清单里 `identity_provider: deterministic`）。下面的 live 套件是关于上游边界的另一份证据，不是 P1–P4 的前提。
 - 任何关于 AI 意识、意图或法律责任的结论。
 
 场景是定向见证，不是流量样本；`results/` 里没有任何数字是安全概率。
+
+## Live SoulAuth 集成
+
+`crates/srg-live` 对着一个**真正运行**的 SoulAuth 端到端走完 AIActor 认证，再把结果交给适配器：
+
+```text
+POST /api/actors/challenge  →  用主体的 Ed25519 私钥签服务端给出的 payload
+POST /api/actors/authenticate  →  会话令牌
+GET  /api/auth/introspect（Bearer）  →  该令牌背后的认证事实
+srg-soulauth::SoulAuthIdentityProvider  →  VerifiedActorFact
+```
+
+它同时检查事实端点拒绝无令牌、伪造令牌与重放的 nonce（都是 401），并可选地对一个人类口令会话做自省。证据落在 `results/live/soulauth/`：挑战、签名、自省响应、`VerifiedActorFact`、负例结果，以及记录服务由哪个 SoulAuth 提交构建的清单。令牌只留 SHA-256 指纹。
+
+```bash
+SOULAUTH_SRC=/path/to/SoulAuth bash scripts/live-soulauth.sh
+```
+
+脚本从那个检出启动 SurrealDB 与 SoulAuth，注册一个操作员和一个 AIActor（私钥从不离开脚本），运行 `srg-live`，然后收拾干净。适配器按 `srg_soulauth::REFERENCE_COMMIT`——引入 `/api/auth/introspect` 的那个 SoulAuth 提交——编写；提交进仓库的证据就是对着同一个提交产生的。live 套件不在确定性核心之内：每次运行的 nonce、id、时间戳都不同，所以 CI 重新执行它但不做 diff。
+
+适配器只做一件事：把认证事实变成 `VerifiedActorFact`。它不读任何授权，也不产生任何治理决定——身份不是授权。
 
 ## 仓库布局
 
@@ -144,9 +166,10 @@ Rust explorer 是同一状态空间上的确定性 BFS，不替代 TLA+；`docs/
 crates/srg-core        类型、参考契约、证据信封、四值归约——不做 I/O
 crates/srg-harness     受控账本（SUT）、10 个检查器、20 场景 × 4 配置、表格、组合
 crates/srg-explorer    有限世界、观察碰撞、带 8 种变异的有界 BFS
-crates/srg-soulauth    SoulAuth v0.3.0 认证事实适配器，置于传输 trait 之后
+crates/srg-soulauth    SoulAuth 认证事实适配器（/api/auth/introspect），置于传输 trait 之后
+crates/srg-live        live 套件：挑战 → Ed25519 签名 → 令牌 → 自省 → VerifiedActorFact
 formal/                P2_Core.tla、P2_Observability.tla、逐故障 TLC 配置
-scripts/               reproduce.sh、check-formal.sh
+scripts/               reproduce.sh、check-formal.sh、live-soulauth.sh
 docs/                  三份冻结设计基线（CONF-01、CORE-01、EVAL-01）、形式↔Rust 映射、
                        复现说明，以及 ARTIFACT_DELTA.md——工件与论文正文仍有差别的每一处，分类记录
 results/               上述已提交的证据

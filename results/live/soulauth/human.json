@@ -1,0 +1,40 @@
+{
+  "email": "live-operator@example.com",
+  "token": {
+    "token_sha256": "d1602500701edd65c6468b27a0063968f4cfd56ff7962b0b68e583a2d0517a80",
+    "expires_at": 1790044570
+  },
+  "introspection": {
+    "authentication": {
+      "actor_identity_id": "actor_identity:e1d69f44-4daf-4a1e-b568-c8439a6e4a94",
+      "actor_kind": "human",
+      "methods": [
+        "password"
+      ],
+      "authenticated_at": 1789958170,
+      "credential_refs": [
+        "credential:80032b4a-f59c-480c-9d98-dfc966addb0f"
+      ]
+    },
+    "session": {
+      "id": "47894e3f-fde8-4eef-b358-c83bb54e4634",
+      "created_at": 1789958170,
+      "expires_at": 1790044570
+    }
+  },
+  "verified_actor_fact": {
+    "request_id": "live-human",
+    "actor": {
+      "domain": "soulauth",
+      "id": "actor_identity:e1d69f44-4daf-4a1e-b568-c8439a6e4a94",
+      "kind": "Human"
+    },
+    "credentials": [
+      "credential:80032b4a-f59c-480c-9d98-dfc966addb0f"
+    ],
+    "session": "47894e3f-fde8-4eef-b358-c83bb54e4634",
+    "runtime": null,
+    "roles": {},
+    "at": 1
+  }
+}

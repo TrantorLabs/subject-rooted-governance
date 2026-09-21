@@ -1,0 +1,50 @@
+{
+  "challenge": {
+    "actor_id": "actor_identity:1h7rrxls2h6lu3t73mee",
+    "nonce": "MweSyTbcYkMD-8UoxxBVwIkjDfX7WZk2E_6ebXpoKPg",
+    "expires_at": 1789958289,
+    "payload": "soulauth-ai-actor-auth/v1\nhttp://127.0.0.1:8311\nactor_identity:1h7rrxls2h6lu3t73mee\nMweSyTbcYkMD-8UoxxBVwIkjDfX7WZk2E_6ebXpoKPg"
+  },
+  "signature": "v7LC_LXin8Oi9PYdcN_pzBZQEMLkPWEBrgw8zmFDRqr4X01oVL-AG-AvDnqkdZp0Na4GD6uM5h2_24K6CK3uBg",
+  "authenticate": {
+    "actor_id": "actor_identity:1h7rrxls2h6lu3t73mee",
+    "credential_label": "srg-live",
+    "token": {
+      "token_sha256": "cee452c450294d6f569eed6271fed72c5c1467024eb9eda7fb1edbf51f702838",
+      "expires_at": 1790044569
+    }
+  },
+  "introspection": {
+    "authentication": {
+      "actor_identity_id": "actor_identity:1h7rrxls2h6lu3t73mee",
+      "actor_kind": "ai_actor",
+      "methods": [
+        "ed25519_key"
+      ],
+      "authenticated_at": 1789958169,
+      "credential_refs": [
+        "ai_actor_credential:ru43rj7fnwvo4ep3db2e"
+      ]
+    },
+    "session": {
+      "id": "16800b94-cf40-47a7-adcf-f2f2678f9ce2",
+      "created_at": 1789958169,
+      "expires_at": 1790044569
+    }
+  },
+  "verified_actor_fact": {
+    "request_id": "live-ai-actor",
+    "actor": {
+      "domain": "soulauth",
+      "id": "actor_identity:1h7rrxls2h6lu3t73mee",
+      "kind": "AIActor"
+    },
+    "credentials": [
+      "ai_actor_credential:ru43rj7fnwvo4ep3db2e"
+    ],
+    "session": "16800b94-cf40-47a7-adcf-f2f2678f9ce2",
+    "runtime": null,
+    "roles": {},
+    "at": 1
+  }
+}
