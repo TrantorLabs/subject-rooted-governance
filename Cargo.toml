@@ -6,6 +6,9 @@ members = [
     "crates/srg-soulauth",
     "crates/srg-live",
 ]
+# CI 把 SoulAuth 源码检出到 ./soulauth 来跑 live 套件；它有自己的 workspace，
+# 不排除的话 cargo 会认为它属于这里。
+exclude = ["soulauth"]
 resolver = "2"
 
 [workspace.package]
