@@ -1,17 +1,17 @@
 {
   "arch": "x86_64",
-  "artifact_version": "0.1.0",
-  "cargo_lock_sha256": "34299f4073c4a598bd30305be5939b5aa02287099b719ee6be0f2c28fb8cf30a",
+  "artifact_version": "0.1.1",
+  "cargo_lock_sha256": "7658d075cf22b0e10bbf30bcbafa0bea2da77513d48308c65dfc8080ba806171",
   "contract": "ReferenceContractV1",
+  "evidence_source_commit": "3d52a313ba30a0b551447f4ca942e3740916e749",
+  "evidence_source_dirty": true,
   "formal_core_sha256": "e4d6c9414d02bd480f11a9a8d71203318642d98459b3bb44eac53683160ee5a2",
   "formal_observability_sha256": "df2d0f925435634dc6f078e4c37ee2e2a3558f8e0420abd4545e4903340a70a2",
-  "git_commit": "9d4d2854983af2c9b8831cf72ccc783d18fc3fa1",
-  "git_dirty": true,
   "identity_provider": "deterministic",
   "os": "linux",
   "rustc": "rustc 1.91.1 (ed61e7d7e 2025-11-07)\nbinary: rustc\ncommit-hash: ed61e7d7e242494fb7057f2657300d9e77bb4fcb\ncommit-date: 2025-11-07\nhost: x86_64-unknown-linux-gnu\nrelease: 1.91.1\nLLVM version: 21.1.2",
   "scenario_registry": "S00-S19-v1",
   "soulauth_live": "EXECUTED against SoulAuth 82ff8ae7f85e01ca64db87467ec11e57f45f1383 (results/live/soulauth)",
-  "source_sha256": "0e19eed6754c11109d1024cb4002f81869b5b60b3bfd3e1b1e74e81baa50ca6f",
-  "timestamp_unix": 1789961881
+  "source_sha256": "579bc1e146fc6414b0fdf0b097ffb5a04a7925055b8bd7bca4160f60fbd3f228",
+  "timestamp_unix": 1789974532
 }

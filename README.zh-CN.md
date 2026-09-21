@@ -17,7 +17,7 @@
 | 责任黑洞（Closed / Unadjudicable / Confirmed-RBH / EvidenceConflict） | `AccountabilityChecker` | S16–S19，以及四种判定之间边界的单元测试 |
 | P1 在线主体可区分性 · P2 历史归因可重建性 | `crates/srg-explorer`，有限世界碰撞搜索 | 弱观察出现碰撞，增强观察后碰撞消失 |
 | P3 治理指向完整性 ⇏ 执行有效性 | S12（陈旧撤销）+ explorer 的 `StaleState` | G1 成立而 O3 违反 |
-| P4 有界组合 | `crates/srg-harness/src/composition.rs` | P4(a) 对六个参考效果的回溯闭合；P4(b) 前瞻撤销安全 |
+| P4 有界组合 | `crates/srg-harness/src/composition.rs` | P4(a) 对六个参考效果的回溯闭合；P4(b) 前瞻撤销安全，每条前提单独检查，完全中介是对参考资源的一次真实执行 |
 | 形式核心模型与双世界观察模型 | `formal/*.tla` | SANY + TLC 已执行；逐故障反例矩阵与 Rust 搜索逐格对照 |
 | SoulAuth 认证事实（上游身份） | `crates/srg-soulauth` + `crates/srg-live` | 对 `GET /api/auth/introspect` 的适配器，钉在一个 SoulAuth 提交；live 套件对着真正运行的 SoulAuth 完成 AIActor 认证并留证据 |
 
@@ -28,7 +28,7 @@
 Rust 1.82 及以上。不需要数据库、网络或外部身份服务。
 
 ```bash
-cargo test --workspace --locked                 # 42 个测试：核心、检查器、场景、explorer、适配器、live 套件
+cargo test --workspace --locked                 # 45 个测试：核心、检查器、场景、explorer、适配器、live 套件
 cargo run --locked -p srg-harness -- run-all    # 20 场景 × 4 配置 → results/raw、traces、evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 碰撞与 9 个变体的有界搜索
 cargo run --locked -p srg-harness -- tables     # 从原始文件生成论文表格（从不静默重跑）
@@ -106,7 +106,7 @@ results/
 ├── tables/                             scenario_matrix、baseline_matrix、g_ablation_matrix、rbh_matrix、p4_matrix
 ├── formal/{status,tlc_matrix}.json     最近一次 SANY/TLC 执行
 ├── live/soulauth/                      最近一次 live SoulAuth 执行（天然不确定）
-├── manifests/run_manifest.json         源码指纹、Cargo.lock 哈希、工具链、契约与注册表标识
+├── manifests/run_manifest.json         源码指纹、证据来源提交、Cargo.lock 哈希、工具链、契约与注册表标识
 └── summary.json
 ```
 
@@ -175,14 +175,14 @@ docs/                  三份冻结设计基线（CONF-01、CORE-01、EVAL-01）
 results/               上述已提交的证据
 ```
 
-`docs/` 里的设计基线把这一代工件称为「v1.0」；软件发布号是 **0.1.0**，即第一个公开版本。0.1.0 满足的就是那些基线的发布门槛。
+`docs/` 里的设计基线把这一代工件称为「v1.0」；软件发布号是 **0.1.1**。0.1.x 满足的就是那些基线的发布门槛。
 
 ## 复现与引用
 
 请把 tag、commit 和归档校验值一起钉住；`main` 会往前走。运行清单记录了源码指纹（除 `results/` 外的全部受控文件）、`Cargo.lock` 哈希和工具链，因此任何一个结果文件都能对回产生它的那份源码。
 
 ```text
-Subject-Rooted Governance v0.1.0, TRANTOR LABS, 2026.
+Subject-Rooted Governance v0.1.1, TRANTOR LABS, 2026.
 https://github.com/TrantorLabs/subject-rooted-governance
 ```
 

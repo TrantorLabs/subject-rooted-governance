@@ -94,6 +94,30 @@
 - **说明：** 三份设计基线把这一代工件叫「v1.0」并写「目标版本 v1.0.0」；软件首个公开发布号定为 **0.1.0**。基线文件保留原文，README 说明二者关系。
 - **状态：** CLOSED。
 
+## D-10｜P4(b) 的 `premises_established` 曾比实际检查到的强
+
+- **类别：** Implementation Bug（证据法位）
+- **发现（外部终审）：** `composition.rs` 对 P4(b) 只检查了 G1、G5、存在 Deny、没有效果，就写
+  `premises_established = true`。论文 P4(b) 的前提还有：匹配撤销在最终准入前已生效、撤销后准入前
+  没有适用的重新授权、以及 G4 完全中介。前两条场景里成立但没被验证；G4 在无效果场景里按设计是
+  N/A，「没有效果」被默默当成了中介前提。
+- **处理：** 每个组合实例逐条列出前提（`premises`），`premises_established` 是合取。P4(b) 新增
+  `revocation_effective_before_final_admission`、`no_applicable_reauthorization`（从证据重算）、
+  `final_admission_denied`，以及 `complete_mediation_bounded`：拿着那条 Deny 准入去让参考资源
+  执行，必须被拒绝且账本不变 —— 对参考配置的一次真实执行，不是对「没有效果」的解读。三个单测：
+  前提逐条成立；S13（合法重新授权）使 `no_applicable_reauthorization` 不成立；S12（陈旧放行）使
+  `complete_mediation_bounded` 不成立。
+- **状态：** CLOSED（0.1.1）。法位仍是「声明的参考配置内的有界可执行支持」，不是全局完全中介证明。
+
+## D-11｜`run_manifest.json` 的 `git_commit` 语义
+
+- **类别：** Implementation Bug（元数据）
+- **发现（外部终审）：** 字段名 `git_commit` 会被读成「本 release 的提交」，实际是「生成这批证据的
+  源码提交」，两者由构造决定相差一个提交（release 提交只改清单本身）。
+- **处理：** 改名 `evidence_source_commit` / `evidence_source_dirty`；REPRODUCIBILITY §6 说明
+  evidence source commit ≠ release commit ≠ archive digest；release 说明记录 tag / commit / 归档摘要。
+- **状态：** CLOSED（0.1.1）。
+
 ---
 
 ## 回填清单（v0.1.0 发布后，论文一次性完成）

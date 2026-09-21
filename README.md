@@ -17,7 +17,7 @@ It is a research harness, not a product: no IAM, no policy language, no real pay
 | Responsibility black hole (Closed / Unadjudicable / Confirmed-RBH / EvidenceConflict) | `AccountabilityChecker` | S16–S19, plus unit tests for the boundaries between the four |
 | P1 online distinguishability · P2 historical reconstructability | `crates/srg-explorer` — finite-world collision search | weak observation collides, strengthened observation does not |
 | P3 referential integrity ⇏ enforcement effectiveness | S12 (stale revocation) + explorer `StaleState` | G1 satisfied while O3 is violated |
-| P4 bounded composition | `crates/srg-harness/src/composition.rs` | P4(a) retrospective closure on six reference effects; P4(b) prospective revocation safety |
+| P4 bounded composition | `crates/srg-harness/src/composition.rs` | P4(a) retrospective closure on six reference effects; P4(b) prospective revocation safety — every premise checked individually, complete mediation as a real execution against the reference resource |
 | Formal core and two-world observability models | `formal/*.tla` | SANY + TLC executed; per-fault counterexample matrix cross-checked against the Rust search |
 | SoulAuth authentication fact (upstream identity) | `crates/srg-soulauth` + `crates/srg-live` | adapter for `GET /api/auth/introspect`, pinned to a SoulAuth commit; the live suite authenticates an AI actor against a running SoulAuth and records the evidence |
 
@@ -28,7 +28,7 @@ The four-valued verdict follows the paper's §3.8 exactly: **Satisfied** (every 
 Rust 1.82 or later. No database, no network, no external identity service.
 
 ```bash
-cargo test --workspace --locked                 # 42 tests: core, checkers, scenarios, explorer, adapter, live suite
+cargo test --workspace --locked                 # 45 tests: core, checkers, scenarios, explorer, adapter, live suite
 cargo run --locked -p srg-harness -- run-all    # 20 scenarios × 4 baselines → results/raw, traces, evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 collisions and the 9-mutation bounded search
 cargo run --locked -p srg-harness -- tables     # paper tables from the raw files (never re-runs silently)
@@ -106,7 +106,7 @@ results/
 ├── tables/                              scenario_matrix, baseline_matrix, g_ablation_matrix, rbh_matrix, p4_matrix
 ├── formal/{status,tlc_matrix}.json      the last SANY/TLC execution
 ├── live/soulauth/                       the last live SoulAuth execution (non-deterministic by nature)
-├── manifests/run_manifest.json          source fingerprint, Cargo.lock hash, toolchain, contract and registry ids
+├── manifests/run_manifest.json          source fingerprint, evidence-source commit, Cargo.lock hash, toolchain, contract and registry ids
 └── summary.json
 ```
 
@@ -176,14 +176,14 @@ docs/                  the three frozen design baselines (CONF-01, CORE-01, EVAL
 results/               the committed evidence described above
 ```
 
-The design baselines in `docs/` call this generation of the artifact "v1.0"; the software release is **0.1.0**, the first public one. What 0.1.0 satisfies is the baselines' release gates.
+The design baselines in `docs/` call this generation of the artifact "v1.0"; the software release is **0.1.1**. What the 0.1.x releases satisfy is the baselines' release gates.
 
 ## Reproducibility and citation
 
 Pin the tag, the commit and the archive checksum together; `main` moves. The run manifest records the source fingerprint (every tracked file except `results/`), the `Cargo.lock` hash and the toolchain, so a result file can be tied to the exact source that produced it.
 
 ```text
-Subject-Rooted Governance v0.1.0, TRANTOR LABS, 2026.
+Subject-Rooted Governance v0.1.1, TRANTOR LABS, 2026.
 https://github.com/TrantorLabs/subject-rooted-governance
 ```
 

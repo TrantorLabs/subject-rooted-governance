@@ -1,9 +1,39 @@
 {
-  "evidence_level": "composition check under the declared reference contract and bounded execution; a G4 path with no effect is not reported as a mediation PASS",
+  "evidence_level": "bounded executable support under the declared reference contract: each instance lists the premises it actually checked; P4(b)'s complete-mediation premise is a real execution against the reference resource with the Deny admission, not an inference from the absence of effects; no general proof",
   "cases": [
     {
       "clause": "P4(a)",
       "instance": "S00",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -25,6 +55,36 @@
     {
       "clause": "P4(a)",
       "instance": "S01",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -46,6 +106,36 @@
     {
       "clause": "P4(a)",
       "instance": "S02",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -67,6 +157,36 @@
     {
       "clause": "P4(a)",
       "instance": "S04",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -88,6 +208,36 @@
     {
       "clause": "P4(a)",
       "instance": "S09",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -109,6 +259,36 @@
     {
       "clause": "P4(a)",
       "instance": "S13",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G2",
+          true
+        ],
+        [
+          "G3",
+          true
+        ],
+        [
+          "G4",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "G6",
+          true
+        ],
+        [
+          "effect_occurred",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
@@ -130,6 +310,32 @@
     {
       "clause": "P4(b)",
       "instance": "fresh-revocation-normal-resource",
+      "premises": [
+        [
+          "G1",
+          true
+        ],
+        [
+          "G5",
+          true
+        ],
+        [
+          "revocation_effective_before_final_admission",
+          true
+        ],
+        [
+          "no_applicable_reauthorization",
+          true
+        ],
+        [
+          "final_admission_denied",
+          true
+        ],
+        [
+          "complete_mediation_bounded",
+          true
+        ]
+      ],
       "premises_established": true,
       "conclusions": [
         [
