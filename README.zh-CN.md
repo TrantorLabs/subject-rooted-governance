@@ -28,7 +28,7 @@
 Rust 1.82 及以上。不需要数据库、网络或外部身份服务。
 
 ```bash
-cargo test --workspace --locked                 # 45 个测试：核心、检查器、场景、explorer、适配器、live 套件
+cargo test --workspace --locked                 # 47 个测试：核心、检查器、场景、explorer、适配器、live 套件
 cargo run --locked -p srg-harness -- run-all    # 20 场景 × 4 配置 → results/raw、traces、evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 碰撞与 9 个变体的有界搜索
 cargo run --locked -p srg-harness -- tables     # 从原始文件生成论文表格（从不静默重跑）
