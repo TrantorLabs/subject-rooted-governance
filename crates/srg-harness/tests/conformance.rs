@@ -201,6 +201,51 @@ fn final_deny_cannot_be_masked_by_earlier_allow() {
     );
 }
 #[test]
+fn g4_cross_request_old_allow_cannot_authorize_new_denied_effect() {
+    // Two requests share a ChainId. An earlier Deny(q2) must not be
+    // displaced by a later Allow(q1) for the purpose of G4(q2).
+    let mut r = run(0, Baseline::B3).unwrap();
+    let mut request2 = r.evidence.requests[0].clone();
+    request2.id = "request-2-record".into();
+    request2.fact.id = "request-2".into();
+    r.evidence.requests.push(request2);
+
+    let mut deny2 = r.evidence.admissions[0].clone();
+    deny2.id = "deny-request-2-record".into();
+    deny2.fact.id = "deny-request-2".into();
+    deny2.fact.request_id = "request-2".into();
+    deny2.fact.at = LogicalPoint(4);
+    deny2.fact.decision = Decision::Deny;
+    r.evidence.admissions.push(deny2);
+
+    // Preserve the original q1 Allow and q1 admission link. Only the
+    // real effect belongs to q2, so G4 must not accept the q1 Allow.
+    r.evidence.effects[0].fact.request_id = "request-2".into();
+    r.query.request_id = "request-2".into();
+    assert_eq!(
+        CompleteMediationChecker
+            .check(&r.evidence, &r.contract, &r.query)
+            .outcome,
+        CheckOutcome::Evaluated(PropertyVerdict::Violated)
+    );
+}
+#[test]
+fn g4_cross_request_allow_is_not_a_substitute_for_missing_admission() {
+    let mut r = run(0, Baseline::B3).unwrap();
+    let mut request2 = r.evidence.requests[0].clone();
+    request2.id = "request-2-record".into();
+    request2.fact.id = "request-2".into();
+    r.evidence.requests.push(request2);
+    r.evidence.effects[0].fact.request_id = "request-2".into();
+    r.query.request_id = "request-2".into();
+    assert_eq!(
+        CompleteMediationChecker
+            .check(&r.evidence, &r.contract, &r.query)
+            .outcome,
+        CheckOutcome::Evaluated(PropertyVerdict::Violated)
+    );
+}
+#[test]
 fn deterministic_evidence() {
     let a = run(15, Baseline::B3).unwrap();
     let b = run(15, Baseline::B3).unwrap();

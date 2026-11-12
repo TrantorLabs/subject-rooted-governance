@@ -429,7 +429,7 @@ fn final_before<'a>(
 ) -> Option<&'a Envelope<AdmissionDecision>> {
     accepted(&e.admissions, c, "admissions")
         .into_iter()
-        .filter(|a| a.fact.chain == x.chain && a.fact.at < x.at)
+        .filter(|a| a.fact.chain == x.chain && a.fact.request_id == x.request_id && a.fact.at < x.at)
         .max_by_key(|a| a.fact.at)
 }
 impl PropertyChecker for CompleteMediationChecker {
