@@ -1,0 +1,16 @@
+name: G4 targeted cross-request regression
+on:
+  push:
+    branches: [fix/g4-cross-request-final-admission-v1]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  g4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust targeted conformance tests
+        run: cargo test --locked -p srg-harness --test conformance g4_cross_request -- --nocapture
+      - name: Formatting check for changed Rust files
+        run: cargo fmt --all -- --check
