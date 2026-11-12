@@ -28,7 +28,7 @@ The four-valued verdict follows the paper's §3.8 exactly: **Satisfied** (every 
 Rust 1.82 or later. No database, no network, no external identity service.
 
 ```bash
-cargo test --workspace --locked                 # 45 tests: core, checkers, scenarios, explorer, adapter, live suite
+cargo test --workspace --locked                 # 47 tests: core, checkers, scenarios, explorer, adapter, live suite
 cargo run --locked -p srg-harness -- run-all    # 20 scenarios × 4 baselines → results/raw, traces, evidence
 cargo run --locked -p srg-explorer -- all       # P1/P2 collisions and the 9-mutation bounded search
 cargo run --locked -p srg-harness -- tables     # paper tables from the raw files (never re-runs silently)
