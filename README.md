@@ -1,5 +1,63 @@
 # Subject-Rooted Governance
 
+## Start here — run and reproduce
+
+Use **Ubuntu 24.04 x86_64 with Bash** for the documented, tested workflow.
+The core research harness is a standalone Rust project: **no SoulAuth server,
+database, wallet, API key or external account is required**. The optional
+live SoulAuth integration is separate. For the core-only run, Java is not
+required; for **complete Rust + TLA+ verification**, Java 17 is required.
+
+**1. Install the prerequisites** (the first install needs network access):
+
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential curl ca-certificates python3 openjdk-17-jre-headless coreutils
+if ! command -v rustup >/dev/null 2>&1; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+  . "$HOME/.cargo/env"
+fi
+rustup toolchain install 1.91.1 --profile minimal --component rustfmt --component clippy
+rustup override set 1.91.1
+rustc --version       # expected: 1.91.1
+java -version         # expected: 17
+python3 --version
+```
+
+Run from the repository root (the directory containing `Cargo.toml`).
+**2. Choose one run path:**
+
+```bash
+# Shorter, Rust-only reproduction (does NOT run the TLA+ model checker):
+bash scripts/reproduce.sh
+```
+
+For **full Rust + genuine TLA+ SANY/TLC** verification, obtain the
+fixed official TLA+ v1.8.0 asset and check its official release SHA-256:
+
+```bash
+curl -fL --retry 3 -o tla2tools.jar https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar
+echo 'e1f11b75c4b5bc4478ba0ac5cb6ae28e40a01b0016bc33e0aa97da22dfdbcd7f  tla2tools.jar' | sha256sum -c -
+TLA2TOOLS_JAR="$PWD/tla2tools.jar" bash scripts/reproduce.sh
+```
+
+**3. Check the outcome.** Every executed step must say `PASSED`, the
+exit code must be **0**, and `results/validation/verification.json` must have
+`"all_passed": true`. The *full* path additionally records executed formal
+checks and produces `results/formal/status.json` and
+`results/formal/tlc_matrix.json`. A correctly detected counterexample is
+an expected research finding, not a failed gate. No archived PASS is a
+substitute for actually executing the commands.
+
+For individual scenarios, theory-to-evidence mapping, optional live identity
+integration and the publication history, continue reading below. See
+[Reproducibility notes](docs/REPRODUCIBILITY.md) (Chinese),
+[formal model instructions](formal/README.md), and
+[中文 README](README.zh-CN.md). Do not use these deterministic
+research scripts as a production authorization or payment system.
+
+---
+
 **An executable research artifact for governing long-lived AI actors as persistent subjects.**
 
 This repository is the companion artifact of the paper *Persistent Subjecthood and Responsibility Black Holes: A Subject-Rooted Governance Architecture for Long-Lived AI Actors* (TRANTOR LABS, 2026). The paper asks what has to stay attached to *the same actor* — roles, authority, restrictions, history — while everything around that actor (credentials, sessions, clients, runtimes) legitimately changes, and what breaks when it does not. This artifact turns the paper's six structural conditions (G1–G6), three target properties (O1–O3), four propositions (P1–P4) and the responsibility-black-hole verdict into something that can be **run, deliberately broken, independently checked and reproduced**.

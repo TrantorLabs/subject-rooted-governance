@@ -1,5 +1,7 @@
 # 复现与审计
 
+> 当前完整安装与运行流程见 [中文 README 首页](../README.zh-CN.md#快速开始体验与完整复现)，英文流程见 [README](../README.md#start-here--run-and-reproduce)。本页继续保存研究证据、历史指纹与各门禁的详细定义。
+
 1. `cargo test --workspace --locked`。
 2. `bash scripts/reproduce.sh`：格式、测试、clippy、20 场景 × 4 配置、有限世界搜索、论文表格；
    每一步的退出码写进 `results/validation/verification.json`。设置 `TLA2TOOLS_JAR` 时再执行 SANY/TLC。
@@ -16,7 +18,7 @@
    两个提交的 `source_sha256` 相同。release 的 tag、commit 与归档摘要写在 release 说明里。
    三者各是各的：evidence source commit ≠ release commit ≠ archive digest。
 7. 形式层：`TLA2TOOLS_JAR=/path/to/tla2tools.jar bash scripts/check-formal.sh`。CI 使用 tla2tools
-   v1.8.0，SHA-256 `9d36716ffb5e49d1ba8fae4651eba59f3189887e12eb90e204a42d2e6e993fef`。负例配置的
+   v1.8.0，SHA-256 `e1f11b75c4b5bc4478ba0ac5cb6ae28e40a01b0016bc33e0aa97da22dfdbcd7f`。负例配置的
    TLC 退出码 12（安全性质反例）是预期结果；其他非零退出码是工具或模型错误，脚本会终止而不是把它
    记成任何一种结论。
 
