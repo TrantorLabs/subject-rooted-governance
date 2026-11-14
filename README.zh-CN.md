@@ -1,5 +1,58 @@
 # Subject-Rooted Governance（主体根式治理）
 
+## 快速开始｜体验与完整复现
+
+推荐使用 **Ubuntu 24.04 x86_64 + Bash**。核心工件是独立的 Rust
+研究实验，不依赖 SoulAuth 服务、数据库、钱包、API Key 或外部账户。
+Live SoulAuth 集成属于可选流程。**只运行 Rust 核心不需要 Java；
+完整运行 Rust + TLA+ 需要 Java 17。**
+
+**第一步：安装环境。** 首次安装工具链需要网络连接：
+
+```bash
+sudo apt-get update
+sudo apt-get install -y build-essential curl ca-certificates python3 openjdk-17-jre-headless coreutils
+if ! command -v rustup >/dev/null 2>&1; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+  . "$HOME/.cargo/env"
+fi
+rustup toolchain install 1.91.1 --profile minimal --component rustfmt --component clippy
+rustup override set 1.91.1
+rustc --version       # expected: 1.91.1
+java -version         # expected: 17
+python3 --version
+```
+
+在包含 `Cargo.toml` 的仓库根目录，**第二步：根据目标选择入口。**
+
+```bash
+# 只运行 Rust 核心、场景、有限探索和表格（不运行 TLA+）：
+bash scripts/reproduce.sh
+```
+
+需要**完整 Rust + TLA+ SANY/TLC** 复现时，下载固定的 TLA+ 官方
+v1.8.0 工具，并验证官方 Release 提供的 SHA-256：
+
+```bash
+curl -fL --retry 3 -o tla2tools.jar https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar
+echo 'e1f11b75c4b5bc4478ba0ac5cb6ae28e40a01b0016bc33e0aa97da22dfdbcd7f  tla2tools.jar' | sha256sum -c -
+TLA2TOOLS_JAR="$PWD/tla2tools.jar" bash scripts/reproduce.sh
+```
+
+**第三步：检查结果。** 每一项已执行步骤都应显示 `PASSED`，
+命令退出码为 **0**，`results/validation/verification.json` 的
+`all_passed` 为 `true`。完整复现还应在
+`results/formal/status.json` 中记录 SANY/TLC 实际执行，并生成
+`results/formal/tlc_matrix.json`。正确发现的反例属于研究结果，
+但工具错误或验证失败不能算作通过。
+
+其他场景、可选 Live SoulAuth 集成、论文证据、版本与引用说明都保留在
+本 README 原有章节。参阅 [复现与审计](docs/REPRODUCIBILITY.md) 和
+[形式模型说明](formal/README.md)。本项目是有界研究工件，
+不是生产支付或授权系统。
+
+---
+
 **把长期 AIActor 当作持续主体来治理的可执行研究工件。**
 
 本仓库是论文《持续主体性与责任黑洞：面向 AI 安全与治理的长期 AIActor 主体根式治理架构》（TRANTOR LABS，2026）的配套工件。论文问的是：当一个行动主体周围的一切——凭证、会话、客户端、运行环境——都在合法地变化时，什么必须继续指向*同一个主体*（角色、授权、限制、历史），做不到时会断在哪里。本工件把论文的六项结构条件（G1–G6）、三项目标性质（O1–O3）、四个命题（P1–P4）和责任黑洞判定，变成**能跑、能故意破坏、能被独立检查、能复现**的东西。

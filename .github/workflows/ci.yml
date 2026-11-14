@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TLA2TOOLS_VERSION: v1.8.0
-      TLA2TOOLS_SHA256: 9d36716ffb5e49d1ba8fae4651eba59f3189887e12eb90e204a42d2e6e993fef
+      TLA2TOOLS_SHA256: e1f11b75c4b5bc4478ba0ac5cb6ae28e40a01b0016bc33e0aa97da22dfdbcd7f
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
